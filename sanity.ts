@@ -10,7 +10,7 @@ const client = createClient({
 
 const builder = imageUrlBuilder(client);
 
-export const urlFor = (source) => builder.image(source);
+export const urlFor = (source: any) => builder.image(source);
 
 // 处理跨域问题
 // sanity cors add http://localhost:3000

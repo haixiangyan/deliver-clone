@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { View, Text, Image, SafeAreaView, TextInput, ScrollView } from 'react-native';
 import {
   ChevronDownIcon,
@@ -10,15 +10,38 @@ import {
 
 import Categories from '../components/Categories';
 import FeaturedRow from '../components/FeaturedRow';
+import client from '../sanity';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+
+  const [featuredCategories, setFeaturedCategories] = useState([]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   }, []);
+
+  useEffect(() => {
+    client
+      .fetch(
+        `
+      *[_type == 'featured'] {
+        ...,
+        restaurants[] ->{
+          ...,
+          dishes[] ->
+        }
+      }
+    `
+      )
+      .then((data) => {
+        setFeaturedCategories(data);
+      });
+  }, []);
+
+  console.log('feature', featuredCategories);
 
   return (
     <SafeAreaView className="bg-white pt-5">
@@ -57,19 +80,14 @@ const HomeScreen = () => {
         <Categories />
 
         {/*Featured Rows*/}
-        <FeaturedRow id="123" title="Featured" description="Paid placements from our partners" />
-
-        <FeaturedRow
-          id="34"
-          title="Tasty Discounts"
-          description="Everyone's been enjoying these juicy discounts!"
-        />
-
-        <FeaturedRow
-          id="88"
-          title="Offers near your!"
-          description="WHy not support your local restaurant tonight!"
-        />
+        {featuredCategories?.map((category: any) => (
+          <FeaturedRow
+            key={category._id}
+            id={category._id}
+            title={category.name}
+            description={category.short_description}
+          />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
