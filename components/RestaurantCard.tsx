@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { FC } from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { MapPinIcon } from 'react-native-heroicons/outline';
@@ -21,8 +22,14 @@ interface Props {
 const RestaurantCard: FC<Props> = (props) => {
   const { imgUrl, title, rating, genre, address } = props;
 
+  const navigation = useNavigation();
+
   return (
-    <TouchableOpacity className="mr-3 bg-white shadow">
+    <TouchableOpacity
+      className="mr-3 bg-white shadow"
+      onPress={() => {
+        navigation.navigate('Restaurant', { ... props });
+      }}>
       <Image
         source={{
           uri: urlFor(imgUrl).url(),
