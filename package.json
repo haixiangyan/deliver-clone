@@ -1,5 +1,5 @@
 {
-  "name": "my-expo-app",
+  "name": "deliveroo-clone",
   "version": "1.0.0",
   "scripts": {
     "android": "expo start --android",
@@ -13,6 +13,8 @@
   "dependencies": {
     "@react-navigation/native": "^7.1.6",
     "@react-navigation/native-stack": "^7.3.10",
+    "@sanity/client": "^6.29.0",
+    "@sanity/image-url": "^1.1.0",
     "expo": "^52.0.44",
     "expo-status-bar": "~2.0.1",
     "nativewind": "latest",

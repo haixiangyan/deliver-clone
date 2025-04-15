@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Text, Image, TouchableOpacity } from 'react-native';
 
 interface Props {
@@ -5,7 +6,7 @@ interface Props {
   title: string;
 }
 
-const CategoryCard = (props: Props) => {
+const CategoryCard: FC<Props> = (props) => {
   const { imgUrl, title } = props;
 
   return (
