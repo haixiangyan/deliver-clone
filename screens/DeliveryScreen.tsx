@@ -33,22 +33,26 @@ const DeliveryScreen = () => {
           </View>
 
           <Progress.Bar height={6} color="#00ccbb" indeterminate />
+
+          <Text className="mt-3 text-gray-500">
+            Your order at {restaurant.title} is being prepared
+          </Text>
         </View>
       </SafeAreaView>
 
       <MapView
         initialRegion={{
-          latitude: restaurant.lat || 22.61447,
-          longitude: restaurant.long || 113.887842,
+          latitude: restaurant.lat || 22.540829,
+          longitude: restaurant.long || 114.061499,
           latitudeDelta: 0.005,
           longitudeDelta: 0.005,
         }}
-        style={{ flex: 1, marginTop: -10, zIndex: 0 }}
+        style={{ flex: 1, marginTop: -40, zIndex: 0 }}
         mapType="mutedStandard">
         <Marker
           coordinate={{
-            latitude: restaurant.lat || 22.61447,
-            longitude: restaurant.long || 113.887842,
+            latitude: restaurant.lat || 22.540829,
+            longitude: restaurant.long || 114.061499,
           }}
           title={restaurant.title}
           description={restaurant.short_description}
@@ -56,6 +60,19 @@ const DeliveryScreen = () => {
           pinColor="#00ccbb"
         />
       </MapView>
+
+      <SafeAreaView className="h-28 flex-row items-center gap-x-5 bg-white">
+        <Image
+          source={{ uri: 'https://links.papareact.com/wru' }}
+          className="ml-5 h-12 w-12 rounded-full bg-gray-300"
+        />
+        <View className="flex-1">
+          <Text className="text-lg">Sonny Sangha</Text>
+          <Text className="text-gray-400">Your Rider</Text>
+        </View>
+
+        <Text className="mr-5 text-lg font-bold text-[#00ccbb]">Call</Text>
+      </SafeAreaView>
     </View>
   );
 };
